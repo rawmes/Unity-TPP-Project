@@ -100,7 +100,5 @@ public class PlayerController : MonoBehaviour
     {
         if (!groundChecker.isGrounded) return; 
 
-       
     }
-
 }

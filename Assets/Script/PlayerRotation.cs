@@ -1,5 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PlayerRotation : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class PlayerRotation : MonoBehaviour
     Rigidbody rb;
     [SerializeField]
     float rotationSpeed;
+    public bool isMoving;
 
     [SerializeField]
     private Transform cameraTransform=>Camera.main.transform;
@@ -15,7 +18,7 @@ public class PlayerRotation : MonoBehaviour
     
     private void Update()
     {
-        if (isStationary())
+        if (!isMoving)
         {
             return;
         }
@@ -27,8 +30,16 @@ public class PlayerRotation : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation,  rotationSpeed);
     }
 
-    public bool isStationary()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        return false;
+        Vector2 value = context.ReadValue<Vector2>();
+        if(value != Vector2.zero)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
     }
 }

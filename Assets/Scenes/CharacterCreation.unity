@@ -408,6 +408,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 548561811}
   m_CullTransparentMesh: 1
+--- !u!1 &630609278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5674768971479021687, guid: 77cb4c94977114a438950eaf1d60eb16, type: 3}
+  m_PrefabInstance: {fileID: 2546001814754753638}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2556,10 +2561,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero
       objectReference: {fileID: 0}
+    - target: {fileID: 4569651679267545108, guid: 77cb4c94977114a438950eaf1d60eb16, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7109362872258564438, guid: 77cb4c94977114a438950eaf1d60eb16, type: 3}
       propertyPath: slider
       value: 
       objectReference: {fileID: 5595985565067766042}
+    - target: {fileID: 7109362872258564438, guid: 77cb4c94977114a438950eaf1d60eb16, type: 3}
+      propertyPath: Essentials
+      value: 
+      objectReference: {fileID: 630609278}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77cb4c94977114a438950eaf1d60eb16, type: 3}
 --- !u!114 &2550469101228768410
@@ -6480,7 +6493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 675637019c6646a418c5707098eb2d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgm: {fileID: 0}
+  Essentials: {fileID: 0}
   playerLooksSO: {fileID: 0}
   slider: {fileID: 0}
   mouseSensitivity: 1

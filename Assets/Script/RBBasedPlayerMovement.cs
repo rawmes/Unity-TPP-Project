@@ -5,21 +5,32 @@ public class RBBasedPlayerMovement : MonoBehaviour
 {
     [SerializeField]
     Animator m_Animator;
+    [SerializeField]
+    GroundChecker m_GroundChecker;
 
     public Rigidbody rb;
     public GameObject camHolder;
 
-    public float speed, senesitivity,maxForce;
-    private Vector2 move, look;
+    public float jumpValue;
 
-    private float lookRotation;
+    public float speed, senesitivity,maxForce;
+    private Vector2 move;
+
+    bool isMoving, canMove=true;
+    [SerializeField]
+    float slowFactor;
+
+    
 
 
     private void FixedUpdate()
     {
+        m_Animator.SetBool("isgrounded", m_GroundChecker.isGrounded);
+
         //find target velocity
         Vector3 currentVelocity = rb.velocity;
         Vector3 targetvelocity = new(move.x, 0, move.y);
+        
         targetvelocity *= speed;
 
         //Align Direction
@@ -30,20 +41,39 @@ public class RBBasedPlayerMovement : MonoBehaviour
 
         //limit force
         Vector3.ClampMagnitude(velocityChange, maxForce);
+        velocityChange.y = 0;
 
-        rb.AddForce(velocityChange,ForceMode.VelocityChange);
+        rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        
+        
     }
 
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!canMove) return;
+
+        if(context.started) { isMoving = true; }
+        if(context.canceled) { isMoving = false; }
+
+        
         move = context.ReadValue<Vector2>();
+       
         m_Animator.SetFloat("x", move.x);
         m_Animator.SetFloat ("y", move.y);
+
+        move.x *= slowFactor;
+        if (move.y < 0) move.y *= slowFactor;
     }
-    public void OnLook(InputAction.CallbackContext context)
+    
+    public void OnJump(InputAction.CallbackContext context)
     {
-        look = context.ReadValue<Vector2>();
+        if (m_GroundChecker.isGrounded)
+        {
+            m_Animator.SetTrigger("jump");
+            rb.AddForce(new Vector3(0, jumpValue, 0), ForceMode.Impulse);
+
+        }
     }
 
 }
